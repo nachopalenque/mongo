@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Productos</h1>
+    <button id="cogeProducto">Obtener productos</button><br>
+    <table id="tablaProducto" border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>marca</th>
+                <th>precio</th>
+
+            </tr>
+       
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script>
+    document.getElementById("cogeProducto")
+    .addEventListener('click',()=>{
+        fetch('/items')
+        .then(response => response.json())
+        .then(data => {
+            const table = document.getElementById("tablaProducto");
+            const tbody = table.querySelector("tbody");
+            tbody.innerHTML="";
+            for(producto of data){
+            const fila = document.createElement("tr")
+            fila.innerHTML=`<td>${producto._id}</td>
+            <td>${producto.marca}</td>
+            <td>${producto.precio}</td>`;
+            tbody.appendChild(fila);
+
+            }
+
+        })
+
+        .catch(error => console.error('Error: ',error))
+    });
+
+</script>
+</html>
