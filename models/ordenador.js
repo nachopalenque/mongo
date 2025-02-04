@@ -92,10 +92,10 @@ const buscarPrimero =()=>{
     precio: p
   });
   // Guardar el ordenador en la base de datos
-  nuevoOrdenador.save()
+  return nuevoOrdenador.save()
     .then(ordenador => console.log('Ordenador guardado:', ordenador))
-    .catch(err => console.error('Error al guardar el ordenador:', err));
-
+    .catch(err => console.error('Error al guardar el ordenador:', err))
+  throw err;
 }
        
 const actualizarOrdenador = (idOrdenador, nuevoPrecio)=>{
@@ -114,15 +114,18 @@ const actualizarOrdenador = (idOrdenador, nuevoPrecio)=>{
 }
 
 const borrarOrdenador = (idOrdenadorParaBorrar)=>{
-    Ordenador.findByIdAndDelete(idOrdenadorParaBorrar)
+   return Ordenador.findByIdAndDelete(idOrdenadorParaBorrar)
   .then(ordenadorEliminado => {
     if (ordenadorEliminado) {
       console.log('Ordenador eliminado:', ordenadorEliminado);
+      return ordenadorEliminado
     } else {
       console.log('No se encontró ningún ordenador con ese ID.');
+      return null
     }
   })
-  .catch(err => console.error('Error al eliminar el ordenador:', err));
+  .catch(err => console.error('Error al eliminar el ordenador:', err))
+  throw err;
 
 }
 
