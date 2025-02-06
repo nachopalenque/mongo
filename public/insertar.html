@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Insertar Ordenador</h1>
+    <label for="marca" id="marca">Introduzca la marca:</label><br>
+    Marca: <input type="text" name="marca" id="marca"><br>
+    <label for="precio" id="precio">Introduzca el precio</label><br>
+    Precio: <input type="number" name="precio" id="precio"><br>
+    <input type="submit" id="insertar" value="Insertar ordenador">
+</body>
+<script>
+const insertarOrdenador = ()=>{
+    let marca = document.getElementById("marca").value;
+    let precio = document.getElementById("precio").value;
+
+    fetch("/items",{
+        method:"POST",
+        headers:{'Content-Type':'application/JSON'
+        },
+        body:JSON.stringify({marca,precio})
+    })
+    .then(response=>{
+        ordenador=>{
+            if(ordenador){
+                alert("ordenador insertado")
+            }else{
+                alert("error al insertar el ordenador")
+            }
+        }
+    })
+}
+
+document.getElementById("insertar").addEventListener("click", insertarOrdenador)
+
+
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista de ordenadores</h1>
+
+    <select name="seleccionaOrdenador" id="seleccionaOrdenador">
+        
+
+    </select><br>
+    <h1>Actualiza Ordenador</h1>
+    <label for="marca" id="marca">Introduzca la marca:</label><br>
+    Marca: <input type="text" name="marca" id="marca"><br>
+    <label for="precio" id="precio">Introduzca el precio</label><br>
+    Precio: <input type="number" name="precio" id="precio"><br>
+    <input type="submit" id="insertar" value="Insertar ordenador">
+</body>
+<script>
+    fetch('/items')
+    .then(response=>response.json())
+    .then(ordenadores =>{
+        for(ordenador of ordenadores){
+            let opcion = document.createElement("option")
+            opcion.value = ordenador._id;
+            opcion.innerHTML = ordenador.marca + " - " + ordenador.precio
+            document.getElementById("seleccionaOrdenador").appendChild(opcion)
+        }
+    })
+    .catch(err => alert(err))
+
+    const traeOrdenador = ()=>{
+        id = document.getElementById("seleccionaOrdenador").value;
+        fetch("/items"+id)
+        .then(response=>response.json())
+        .then(ordenador => {
+            document.getElementById("marca").value = ordenador.marca
+            document.getElementById("precio").value = ordenador.precio
+
+        })
+    }
+
+    document.getElementById("seleccionaOrdenador").addEventListener("change",traeOrdenador);
+</script>
+</html>

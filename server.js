@@ -1,11 +1,17 @@
 const express = require('express')
 const app = express()
+const path = require('path');
 const moduloOrdenador = require('./models/ordenador');
 app.use(express.static('public'))
 
 app.get('/', function (req, res) {
   res.send('index')
 })
+
+
+app.get('/insertar', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'insertar.html'));
+});
 
 app.use(express.json());
 
