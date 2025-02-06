@@ -55,14 +55,9 @@ moduloOrdenador.crearNuevoOrdenador(marca,precio)
 
 // Actualizar un ítem existente
 app.put("/items/:id", (req, res) => {
-  const itemId = parseInt(req.params.id);
-  const itemIndex = items.findIndex((i) => i.id === itemId);
-  if (itemIndex !== -1) {
-    items[itemIndex].name = req.body.name;
-    res.json(items[itemIndex]);
-  } else {
-    res.status(404).json({ message: "Ítem no encontrado" });
-  }
+  const itemId = req.params.id;
+  marca = req.body.marca;
+  precio = req.body.precio;
 });
 
 // Eliminar un ítem
